@@ -1,4 +1,5 @@
 # Unofficial BigQuery Magic Command
+[![](https://badge.fury.io/py/another-bigquery-magic.svg)](https://badge.fury.io/py/another-bigquery-magic)
 
 ## Installation
 
