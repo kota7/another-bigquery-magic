@@ -72,4 +72,4 @@ jsonfile = "<json-file-path>"
 </div>
 
 
-See [./example.ipynb] for more examples.
+See [example.ipynb](./example.ipynb) for more examples.
