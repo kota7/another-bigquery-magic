@@ -38,6 +38,11 @@ class BigqueryMagic(Magics, Configurable):
         config=True,
         help="Show query to run"
     )
+    quiet = Bool(
+        False,
+        config=True,
+        help="Display no message"
+    )
     localjson = Unicode(
         None,
         config=True,
@@ -48,7 +53,7 @@ class BigqueryMagic(Magics, Configurable):
     @line_cell_magic
     def bq(self, line, cell=""):
         query = line or cell
-        if self.showquery:
+        if self.showquery and not self.quiet:
             print(f"Running query: {query}", file=sys.stderr)
 
         t1 = datetime.now()
@@ -61,16 +66,17 @@ class BigqueryMagic(Magics, Configurable):
             else:
                 client = bigquery.Client()
             job = client.query(query)
-            if self.showtime:
+            if self.showtime and not self.quiet:
                 print(f"Start query at {t1}", file=sys.stderr)
         result = job.result() # wait until the job finshes
         t2 = datetime.now()
-        if self.showtime and self.showbytes:
-            print(f"End query at {t2} (Execution time: {t2-t1}, Processed: {round(job.total_bytes_processed/1024**3, 1)} GB)", file=sys.stderr)
-        elif self.showtime:
-            print(f"End query at {t2} (Execution time: {t2-t1})", file=sys.stderr)
-        elif self.showbytes:
-            print(f"Processed: {round(job.total_bytes_processed/1024**3, 1)} GB", file=sys.stderr)
+        if not self.quiet:
+            if self.showtime and self.showbytes:
+                print(f"End query at {t2} (Execution time: {t2-t1}, Processed: {round(job.total_bytes_processed/1024**3, 1)} GB)", file=sys.stderr)
+            elif self.showtime:
+                print(f"End query at {t2} (Execution time: {t2-t1})", file=sys.stderr)
+            elif self.showbytes:
+                print(f"Processed: {round(job.total_bytes_processed/1024**3, 1)} GB", file=sys.stderr)
 
         if self.autolimit is None or result.total_rows <= self.autolimit:
             # no limit or within the limit
@@ -79,9 +85,10 @@ class BigqueryMagic(Magics, Configurable):
             data = []
             for i, row in enumerate(result):
                 if i >= self.autolimit:
-                    print(f"Result is truncated at the row {self.autolimit} of {result.total_rows}", file=sys.stderr)
+                    if not self.quiet:
+                        print(f"Result is truncated at the row {self.autolimit} of {result.total_rows}", file=sys.stderr)
                     break
-            data.append(dict(row.items()))
+                data.append(dict(row.items()))
         if len(data) == 0:
             return None  # No result returned
         return pd.DataFrame(data)
