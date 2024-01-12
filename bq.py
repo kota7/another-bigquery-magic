@@ -72,13 +72,13 @@ class BigqueryMagic(Magics, Configurable):
         elif self.showbytes:
             print(f"Processed: {round(job.total_bytes_processed/1024**3, 1)} GB", file=sys.stderr)
 
-        if self.autocommit is None or job.total_rows <= self.autolimit:
+        if self.autolimit is None or job.total_rows <= self.autolimit:
             # no limit or within the limit
             data = [dict(row.items()) for row in job]
         else:
             data = []
             for i, row in enumerate(job):
-                if i >= self.autocommit:
+                if i >= self.autolimit:
                     print(f"Result is truncated at {self.autolimit} / {job.total_rows}", file=sys.stderr)
                     break
             data.append(dict(row.items()))
