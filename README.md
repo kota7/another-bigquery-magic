@@ -58,19 +58,6 @@ jsonfile = "<json-file-path>"
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -106,19 +93,6 @@ SELECT
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -151,15 +125,34 @@ SELECT 2 AS x
 UNION ALL
 SELECT 3 AS x
 """
-%bq {q}
+x = %bq {q}
+display(x)
 
 # Reset to a reasonable number
 %config BigqueryMagic.autolimit = 10000
 ```
 
-    Start query at 2024-01-12 15:31:13.948559
-    End query at 2024-01-12 15:31:16.773933 (Execution time: 0:00:02.825374, Processed: 0.0 GB)
-    Result is truncated at the row 2 of 3
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
@@ -180,25 +173,8 @@ x = %bq SELECT true AS showbytes, true AS showtime, true AS quiet
 display(x)
 ```
 
-    Start query at 2024-01-12 15:31:17.086035
-    End query at 2024-01-12 15:31:19.910281 (Execution time: 0:00:02.824246)
-
-
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -216,24 +192,8 @@ display(x)
 </div>
 
 
-    Processed: 0.0 GB
-
-
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -255,19 +215,6 @@ display(x)
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -288,8 +235,3 @@ display(x)
 </table>
 </div>
 
-
-
-```python
-
-```
