@@ -79,7 +79,7 @@ class BigqueryMagic(Magics, Configurable):
             data = []
             for i, row in enumerate(result):
                 if i >= self.autolimit:
-                    print(f"Result is truncated at {self.autolimit} / {result.total_rows}", file=sys.stderr)
+                    print(f"Result is truncated at the row {self.autolimit} of {result.total_rows}", file=sys.stderr)
                     break
             data.append(dict(row.items()))
         if len(data) == 0:
