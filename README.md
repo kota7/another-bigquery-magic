@@ -33,7 +33,8 @@ from google.colab import auth
 auth.authenticate_user()
 
 # Example 2. Authentication by user log-in
-# Note: to access external table with google drive, we also need "https://www.googleapis.com/auth/drive" in the scope
+# Note: to access external table with google drive,
+#       we also need "https://www.googleapis.com/auth/drive" in the scope
 !gcloud auth application-default login --scopes="https://www.googleapis.com/auth/bigquery"
 
 # Example 3. Authentication with a local json file
