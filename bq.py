@@ -13,12 +13,12 @@ except ImportError:
     from IPython.config.configurable import Configurable
     from IPython.utils.traitlets import Bool, Int, Unicode
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 @magics_class
 class BigqueryMagic(Magics, Configurable):
     autolimit = Int(
-        10000,
+        50000,
         config=True,
         allow_none=True,
         help="Automatically limit the number of rows to be returned (Set None to retrieve all rows)"
@@ -72,11 +72,15 @@ class BigqueryMagic(Magics, Configurable):
         elif self.showbytes:
             print(f"Processed: {round(job.total_bytes_processed/1024**3, 1)} GB", file=sys.stderr)
 
-        data = []
-        for i, row in enumerate(job):
-            if self.autolimit is not None and i > self.autolimit:
-                print(f"Result is truncated at the row {self.autolimit}", file=sys.stderr)
-                break
+        if self.autocommit is None or job.total_rows <= self.autolimit:
+            # no limit or within the limit
+            data = [dict(row.items()) for row in job]
+        else:
+            data = []
+            for i, row in enumerate(job):
+                if i >= self.autocommit:
+                    print(f"Result is truncated at {self.autolimit} / {job.total_rows}", file=sys.stderr)
+                    break
             data.append(dict(row.items()))
         if len(data) == 0:
             return None  # No result returned
