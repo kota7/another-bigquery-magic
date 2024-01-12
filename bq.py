@@ -63,7 +63,7 @@ class BigqueryMagic(Magics, Configurable):
             job = client.query(query)
             if self.showtime:
                 print(f"Start query at {t1}", file=sys.stderr)
-        job.result() # wait until the job finshes
+        result = job.result() # wait until the job finshes
         t2 = datetime.now()
         if self.showtime and self.showbytes:
             print(f"End query at {t2} (Execution time: {t2-t1}, Processed: {round(job.total_bytes_processed/1024**3, 1)} GB)", file=sys.stderr)
@@ -72,14 +72,14 @@ class BigqueryMagic(Magics, Configurable):
         elif self.showbytes:
             print(f"Processed: {round(job.total_bytes_processed/1024**3, 1)} GB", file=sys.stderr)
 
-        if self.autolimit is None or job.total_rows <= self.autolimit:
+        if self.autolimit is None or result.total_rows <= self.autolimit:
             # no limit or within the limit
-            data = [dict(row.items()) for row in job]
+            data = [dict(row.items()) for row in result]
         else:
             data = []
-            for i, row in enumerate(job):
+            for i, row in enumerate(result):
                 if i >= self.autolimit:
-                    print(f"Result is truncated at {self.autolimit} / {job.total_rows}", file=sys.stderr)
+                    print(f"Result is truncated at {self.autolimit} / {result.total_rows}", file=sys.stderr)
                     break
             data.append(dict(row.items()))
         if len(data) == 0:
