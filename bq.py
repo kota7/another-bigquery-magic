@@ -13,7 +13,7 @@ except ImportError:
     from IPython.config.configurable import Configurable
     from IPython.utils.traitlets import Bool, Int, Unicode
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 @magics_class
 class BigqueryMagic(Magics, Configurable):
