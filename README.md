@@ -1,5 +1,5 @@
 # another-bigquery-magic
-Unofficial bigquery magic Command for IPython notebook
+Unofficial bigquery magic command for IPython notebook
 
 [![](https://badge.fury.io/py/another-bigquery-magic.svg)](https://badge.fury.io/py/another-bigquery-magic)
 
