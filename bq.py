@@ -13,12 +13,12 @@ except ImportError:
     from IPython.config.configurable import Configurable
     from IPython.utils.traitlets import Bool, Int, Unicode
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 
 @magics_class
 class BigqueryMagic(Magics, Configurable):
     autolimit = Int(
-        50000,
+        1000000,
         config=True,
         allow_none=True,
         help="Automatically limit the number of rows to be returned (Set None to retrieve all rows)"
