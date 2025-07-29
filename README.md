@@ -95,13 +95,7 @@ print(type(x))
 
 
 
-<div><style>
-.dataframe > thead > tr,
-.dataframe > tbody > tr {
-  text-align: right;
-  white-space: pre-wrap;
-}
-</style>
+<div>
 <small>shape: (1, 3)</small><table border="1" class="dataframe"><thead><tr><th>n</th><th>pi</th><th>mode</th></tr><tr><td>i64</td><td>f64</td><td>str</td></tr></thead><tbody><tr><td>1</td><td>3.14</td><td>&quot;test&quot;</td></tr></tbody></table></div>
 
 
@@ -114,19 +108,7 @@ print(type(x))
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
