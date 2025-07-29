@@ -12,8 +12,6 @@ except ImportError:
     from IPython.config.configurable import Configurable
     from IPython.utils.traitlets import Bool, Int, Unicode
 
-__version__ = "0.1.4"
-
 @magics_class
 class BigqueryMagic(Magics, Configurable):
     autolimit = Int(
