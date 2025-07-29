@@ -3,7 +3,6 @@
 import sys
 import warnings
 from datetime import datetime
-import pandas as pd
 from google.cloud import bigquery
 from IPython.core.magic import Magics, line_cell_magic, magics_class
 try:
@@ -100,7 +99,9 @@ class BigqueryMagic(Magics, Configurable):
         if self.usepolars:
             import polars as pl
             return pl.DataFrame(data)
-        return pd.DataFrame(data)
+        else:
+            import pandas as pd
+            return pd.DataFrame(data)
 
 
 def load_ipython_extension(ipython):
