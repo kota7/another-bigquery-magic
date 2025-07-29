@@ -19,5 +19,5 @@ setup(
     url='https://github.com/kota7/another-bigquery-magic',
     
     py_modules=['bq'],
-    install_requires=['pandas', 'IPython', 'traitlets', 'google-cloud-bigquery']
+    install_requires=['pandas', 'polars', 'IPython', 'traitlets', 'google-cloud-bigquery']
 )

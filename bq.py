@@ -23,6 +23,12 @@ class BigqueryMagic(Magics, Configurable):
         allow_none=True,
         help="Automatically limit the number of rows to be returned (Set None to retrieve all rows)"
     )
+    usepolars = Bool(
+        False,
+        config=True,
+        help="Use polars instead of pandas to return the result.  "
+             "This is useful for large datasets, but requires polars to be installed."
+    )
     showtime = Bool(
         True,
         config=True,
@@ -91,6 +97,9 @@ class BigqueryMagic(Magics, Configurable):
                 data.append(dict(row.items()))
         if len(data) == 0:
             return None  # No result returned
+        if self.usepolars:
+            import polars as pl
+            return pl.DataFrame(data)
         return pd.DataFrame(data)
 
 
